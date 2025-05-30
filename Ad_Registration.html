@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advertiser Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="Scrads.css" />
+    <link rel="stylesheet" href="Ad_Registration.css" />
+</head>
+<body>
+    <div class="nav-container">
+        <nav class="nav">
+            <a href="Scrads.html" class="logo"><img src="./image.png" height="30" alt=""></a>
+            <a href="Driver_Login.html">Driver</a>
+            <a href="Ad_Login.html">Advertisement</a>
+            <a href="#">Contact us</a>
+        </nav>
+    </div>
+    <div class="registration-container">
+        <h2>Advertiser Registration</h2>
+        <form id="registrationForm" action="advertiser_register.php" method="POST">
+            <label for="brandName">Brand Name</label>
+            <input type="text" id="brandName" name="brandName" required />
+
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" name="productName" required />
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+
+            <label for="duration">Duration of Ads (weeks)</label>
+            <input type="number" id="duration" name="duration" min="1" required />
+
+            <label>Region</label>
+            <div class="region-options">
+                <label><input type="radio" name="region" value="High Density" required /> High Density</label>
+                <label><input type="radio" name="region" value="Medium Density" /> Medium Density</label>
+                <label><input type="radio" name="region" value="Low Density" /> Low Density</label>
+            </div>
+
+            <label for="charges">Registration Charges (per week)</label>
+            <input type="text" id="charges" name="charges" value="2000" readonly />
+
+            <input type="submit" value="Register" />
+        </form>
+    </div>
+
+    <script>
+        let chargesInput = document.getElementById('charges');
+        let durationInput = document.getElementById('duration');
+        let ratePerWeek = 2000;
+
+        function updateCharges() {
+            let duration = parseInt(durationInput.value);
+            let region = document.querySelector('input[name="region"]:checked');
+            if (!region) {
+                chargesInput.value = '';
+                return;
+            }
+            // if (!isNaN(duration) && duration > 0) 
+            if (duration > 0)
+            {
+                let basePrice = duration * ratePerWeek;
+                let adjustedPrice = basePrice;
+                if (region.value === 'High Density') {
+                    adjustedPrice = basePrice * 1.2;
+                } else if (region.value === 'Low Density') {
+                    adjustedPrice = basePrice * 0.8;
+                }
+                chargesInput.value = adjustedPrice.toFixed(2);
+            } else {
+                chargesInput.value = '';
+            }
+        }
+
+        durationInput.addEventListener('input', updateCharges);
+        let regionInputs = document.querySelectorAll('input[name="region"]');
+        regionInputs.forEach(input => input.addEventListener('change', updateCharges));
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            let duration = durationInput.value;
+            if (duration < 1) {
+                alert('Duration must be at least 1 week.');
+                event.preventDefault();
+            }
+            if (!document.querySelector('input[name="region"]:checked')) {
+                alert('Please select a region.');
+                event.preventDefault();
+            }
+        });
+
+        updateCharges();
+    </script>
+</body>
+</html>

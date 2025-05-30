@@ -1,0 +1,69 @@
+
+.registration-container {
+    width: 400px;
+    background-color: #2a2a2a;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #bb86fc88;
+    margin: 40px auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #bb86fc;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #eee;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="radio"],
+input[type="email"],
+input[type="tel"],
+select
+{
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+input[type="submit"] {
+    background-color: #bb86fc;
+    color: #1a1a1a;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #9a5de0;
+}
+
+.region-options {
+    margin-bottom: 15px;
+}
+
+.region-options label {
+    margin-right: 15px;
+    font-weight: normal;
+    color: #eee;
+}

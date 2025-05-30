@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertisement Dashboard</title>
+    <link rel="stylesheet" href="AdvertisementDashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Advertisement Dashboard</h1>
+        </header>
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h2>Sales Over Time</h2>
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Ad Impressions</h2>
+                <canvas id="impressionsChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Population Density</h2>
+                <canvas id="populationDensityChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h2>Ad Playing Time</h2>
+                <canvas id="adPlayingTimeChart"></canvas>
+            </div>
+            <div class="chart-card" style="grid-column: span 2;">
+                <h2>Population Density & Ad Playing Time Overview</h2>
+                <canvas id="combinedChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [120, 190, 300, 250, 320, 400, 450],
+                    borderColor: '#bb86fc',
+                    backgroundColor: 'rgba(187, 134, 252, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const impressionsCtx = document.getElementById('impressionsChart').getContext('2d');
+        const impressionsChart = new Chart(impressionsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Video', 'Popup', 'Social', 'Search'],
+                datasets: [{
+                    label: 'Impressions',
+                    data: [5000, 3000, 2000, 4000, 3500],
+                    backgroundColor: '#bb86fc'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const populationDensityCtx = document.getElementById('populationDensityChart').getContext('2d');
+        const populationDensityChart = new Chart(populationDensityCtx, {
+            type: 'pie',
+            data: {
+                labels: ['High Density', 'Medium Density', 'Low Density'],
+                datasets: [{
+                    label: 'Population Density',
+                    data: [40, 35, 25],
+                    backgroundColor: ['#bb86fc', '#9a5de0', '#6f42c1']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        const adPlayingTimeCtx = document.getElementById('adPlayingTimeChart').getContext('2d');
+        const adPlayingTimeChart = new Chart(adPlayingTimeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Morning', 'Afternoon', 'Evening', 'Night'],
+                datasets: [{
+                    label: 'Ad Playing Time (hours)',
+                    data: [5, 8, 6, 3],
+                    backgroundColor: '#bb86fc'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const combinedCtx = document.getElementById('combinedChart').getContext('2d');
+        const combinedChart = new Chart(combinedCtx, {
+            type: 'bar',
+            data: {
+                labels: ['High Density', 'Medium Density', 'Low Density'],
+                datasets: [
+                    {
+                        label: 'Population Density (%)',
+                        data: [40, 35, 25],
+                        backgroundColor: '#bb86fc',
+                        yAxisID: 'y1'
+                    },
+                    {
+                        label: 'Ad Playing Time (hours)',
+                        data: [8, 6, 4],
+                        backgroundColor: '#6f42c1',
+                        yAxisID: 'y2'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y1: {
+                        type: 'linear',
+                        position: 'left',
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Population Density (%)'
+                        }
+                    },
+                    y2: {
+                        type: 'linear',
+                        position: 'right',
+                        beginAtZero: true,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Ad Playing Time (hours)'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
